@@ -3,7 +3,7 @@ var rawDataIsLoading = false
 var statusPagePassword = false
 var showHashTable = true
 var showInstances = true
-var showWorkers = true
+var showWorkers = false
 var hashkeys = {}
 var statshash = 'summarystats'  /* unique statistics worker name */
 var active
