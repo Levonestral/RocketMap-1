@@ -1022,6 +1022,14 @@ var StoreOptions = {
         default: [],
         type: StoreTypes.JSON
     },
+    'downscalePokemon': {
+        default: false,
+        type: StoreTypes.Boolean
+    },
+    'downscaledPokemon': {
+        default: [],
+        type: StoreTypes.JSON
+    },
     'searchMarkerStyle': {
         default: 'pokesition',
         type: StoreTypes.String
@@ -1190,14 +1198,17 @@ function setupPokemonMarkerDetails(item, map, scaleByRarity = true, isNotifyPkmn
     var markerDetails = {
         sprite: sprite
     }
-    var iconSize = (map.getZoom() - 3) * (map.getZoom() - 3) * 0.2 + Store.get('iconSizeModifier')
-    rarityValue = 2
 
+    var iconSize = (map.getZoom() - 3) * (map.getZoom() - 3) * 0.2 + Store.get('iconSizeModifier')
+    var rarityValue = 2
+
+    // Apply the override upscale before rarity.
     if (Store.get('upscalePokemon')) {
         const upscaledPokemon = Store.get('upscaledPokemon')
-        var rarityValue = isNotifyPkmn || (upscaledPokemon.indexOf(item['pokemon_id']) !== -1) ? 29 : 2
+        rarityValue = isNotifyPkmn || (upscaledPokemon.indexOf(item['pokemon_id']) !== -1) ? 29 : 2
     }
 
+    // Apply rarity scale.
     if (scaleByRarity) {
         const rarityValues = {
             'very rare': 30,
@@ -1209,6 +1220,14 @@ function setupPokemonMarkerDetails(item, map, scaleByRarity = true, isNotifyPkmn
         if (rarityValues.hasOwnProperty(pokemonRarity)) {
             rarityValue = rarityValues[pokemonRarity] 
             
+        }
+    }
+
+    // Apply the override downscale after rarity.
+    if (Store.get('downscalePokemon')) {
+        const downscaledPokemon = Store.get('downscaledPokemon')
+        if (downscaledPokemon.indexOf(item['pokemon_id']) !== -1) {
+            rarityValue = 2;
         }
     }
 
