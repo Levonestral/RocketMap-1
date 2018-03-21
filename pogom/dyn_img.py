@@ -100,7 +100,9 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None, form=None, costume=None
     else:
         # Extract pokemon icon from spritesheet
         source = path_pokemon_spritesheet
-        weather_suffix = '_{}'.format(WeatherCondition.Name(weather)) if weather else ''
+        # CUSTOM: Turn off weather image on pokemon
+        #weather_suffix = '_{}'.format(WeatherCondition.Name(weather)) if weather else ''
+        weather_suffix = ''
         target_path = os.path.join(path_generated, 'pokemon_spritesheet_marker')
         target = os.path.join(target_path, 'pokemon_{}{}.png'.format(pkm, weather_suffix))
 
