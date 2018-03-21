@@ -989,6 +989,9 @@ function gymLabel(gym, includeMembers = true) {
                   <div>
                     <img class='gym pokemon motivation heart' src='static/images/gym/Heart.png'> <span class='gym pokemon motivation'>${member.cp_decayed}</span>
                   </div>
+                  <div>
+                    <span id='one' class='gym pokemon'>${member.trainer_name}</span>
+                  </div>
                 </div>
               </center>
             </span>`
