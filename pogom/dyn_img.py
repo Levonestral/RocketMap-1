@@ -110,16 +110,17 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None, form=None, costume=None
         y = (pkm_idx / pkm_sprites_cols) * pkm_sprites_size
         im_lines.append('-crop {size}x{size}+{x}+{y} +repage'.format(size=target_size, x=x, y=y))
 
-    if weather:
-        radius = 20
-        x = target_size - radius - 2
-        y = radius + 1
-        y2 = 1
-        im_lines.append(
-            '-gravity northeast'
-            ' -fill "#FFFD" -stroke black -draw "circle {x},{y} {x},{y2}"'
-            ' -draw "image over 1,1 42,42 \'{weather_img}\'"'.format(x=x, y=y, y2=y2, weather_img=weather_images[weather])
-        )
+    # CUSTOM: Turn off weather image on pokemon
+    #if weather:
+    #    radius = 20
+    #    x = target_size - radius - 2
+    #    y = radius + 1
+    #    y2 = 1
+    #    im_lines.append(
+    #        '-gravity northeast'
+    #        ' -fill "#FFFD" -stroke black -draw "circle {x},{y} {x},{y2}"'
+    #        ' -draw "image over 1,1 42,42 \'{weather_img}\'"'.format(x=x, y=y, y2=y2, weather_img=weather_images[weather])
+    #    )
 
     return run_imagemagick(source, im_lines, target)
 
