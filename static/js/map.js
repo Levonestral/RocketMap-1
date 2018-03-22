@@ -655,6 +655,12 @@ function pokemonLabel(item) {
     var encounterIdLong = encounterId
     var weather_boosted_condition = item['weather_boosted_condition']
 
+    // FIX: If the gender is null, then don't update it.
+    var pokemonGender = '';
+    if (gender !== null && gender !== undefined) {
+    	pokemonGender = genderType[gender - 1];
+    }
+
     $.each(types, function (index, type) {
         typesDisplay += getTypeSpan(type)
     })
@@ -668,9 +674,10 @@ function pokemonLabel(item) {
         formString += `(${unownForm[item['form']]})`
     }
 
+    // FIX: Use new variable pokemonGender above instead.
     contentstring += `
     <div class='pokemon name'>
-      ${name} <span class='pokemon name pokedex'><a href='http://pokemon.gameinfo.io/en/pokemon/${id}' target='_blank' title='View in Pokédex'>#${id}</a></span> ${formString} <span class='pokemon gender rarity'>${genderType[gender - 1]} ${rarityDisplay}</span> ${typesDisplay}
+      ${name} <span class='pokemon name pokedex'><a href='http://pokemon.gameinfo.io/en/pokemon/${id}' target='_blank' title='View in Pokédex'>#${id}</a></span> ${formString} <span class='pokemon gender rarity'>${pokemonGender} ${rarityDisplay}</span> ${typesDisplay}
     </div>`
 
     var weatherBoost = ''
