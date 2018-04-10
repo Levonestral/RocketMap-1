@@ -12,6 +12,8 @@
                                 # e.g. http://127.0.0.1:4242 (default=None)
 #pgscout-url:                   # Address of PGScout to perform encounters. Required for PGScout. 
                                 # e.g. http://127.0.0.1:4243/iv (default=None)
+#pgproxy-url:                   # Address of PGProxy to load proxies. Overrides both #proxy and #proxy-file.
+                                # e.g. http://127.0.0.1:4244 (default=None)
 #rareless-scans-threshold:      # Mark an account as shadowbanned after this many rareless scans. PGPool required. (default=10)
 #rotate-blind                   # Rotate out shadowbanned accounts. PGPool required.
 

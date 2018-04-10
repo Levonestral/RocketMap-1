@@ -9,6 +9,7 @@ import time
 from threading import Thread
 from random import randint
 from utils import get_async_requests_session
+from pogom.pgproxy import pgproxy_request_proxies
 
 log = logging.getLogger(__name__)
 
@@ -137,8 +138,18 @@ def start_request_futures(ptc_session, niantic_session, proxy, timeout):
 def load_proxies(args):
     proxies = []
 
-    # Load proxies from the file. Override args.proxy if specified.
-    if args.proxy_file is not None:
+    if args.pgproxy_url is not None:
+        # Obtain proxies from PGProxy
+        proxies = pgproxy_request_proxies(args)
+
+        log.info('PGProxy provided %d proxies.', len(proxies))
+
+        if len(proxies) == 0:
+            log.error('PGProxy was configured but ' +
+                      'no proxies were loaded. Aborting.')
+            sys.exit(1)
+    elif args.proxy_file is not None:
+        # Load proxies from the file. Override args.proxy if specified.
         log.info('Loading proxies from file.')
 
         with open(args.proxy_file) as f:
